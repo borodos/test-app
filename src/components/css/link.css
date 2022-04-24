@@ -1,0 +1,29 @@
+.link {
+	text-decoration: none;
+	letter-spacing: 1px;
+	color: #ccc;
+}
+
+.link:hover {
+	color: aqua;
+	border-bottom: 1px solid #ccc;
+}
+
+.active {
+	text-decoration: none;
+	letter-spacing: 1px;
+	color: aqua;
+	border-bottom: 1px solid aqua;
+}
+
+.active:hover {
+	color: aqua;
+	border-bottom: 1px solid #ccc;
+}
+
+.nav {
+	max-width: 250px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
