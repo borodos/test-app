@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
-import Main from "../pages/Main";
-import Search from "../pages/Search";
-import Basket from "../pages/Basket";
-import Profile from "../pages/Profile";
+import { Context } from "../index";
+import { privateRoutes, publicRoutes } from "../routes";
+import { observer } from "mobx-react-lite";
 
-function AppRouter() {
+export const AppRouter = observer(() => {
+	const { user } = useContext(Context);
+
 	return (
 		<Routes>
-			<Route path="/" element={<Main />} />
-			<Route path="/search" element={<Search />} />
-			<Route path="/basket" element={<Basket />} />
-			<Route path="/profile" element={<Profile />} />
+			{user._isAuth &&
+				privateRoutes.map(({ path, component }) => (
+					<Route key={path} path={path} element={component} />
+				))}
+			{publicRoutes.map(({ path, component }) => (
+				<Route key={path} path={path} element={component} />
+			))}
 		</Routes>
 	);
-}
+});
 
 export default AppRouter;

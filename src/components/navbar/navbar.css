@@ -27,3 +27,22 @@
 	display: flex;
 	justify-content: space-between;
 }
+
+.title {
+	text-decoration: none;
+	color: #fff;
+}
+
+.title:hover {
+	color: aqua;
+}
+
+.text {
+	text-decoration: none;
+	color: #fff;
+	padding: 0.5rem;
+}
+
+.text:hover {
+	color: #000;
+}
