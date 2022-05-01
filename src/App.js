@@ -1,6 +1,5 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import "semantic-ui-css/semantic.min.css";
 import { Container, Spinner } from "react-bootstrap";
 import { BrowserRouter } from "react-router-dom";
 import { Context } from ".";
@@ -13,14 +12,12 @@ export const App = observer(() => {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		setTimeout(() => {
-			check()
-				.then((data) => {
-					user.setUser(true);
-					user.setIsAuth(true);
-				})
-				.finally(() => setLoading(false));
-		}, 1000);
+		check()
+			.then((data) => {
+				user.setUser(data);
+				user.setIsAuth(true);
+			})
+			.finally(() => setLoading(false));
 	});
 
 	if (loading) {

@@ -9,12 +9,11 @@ export const AuthPage = observer(() => {
 	// -- Получаем маршрут в строке запроса
 	const location = useLocation();
 	const isLoginPage = location.pathname === "/login";
-
 	const [email, setEmail] = useState("");
+	const [firstName, setFirstName] = useState("");
+	const [secondName, setSecondName] = useState("");
 	const [password, setPassword] = useState("");
-
 	const { user } = useContext(Context);
-
 	const navigate = useNavigate();
 
 	const click = async () => {
@@ -25,13 +24,11 @@ export const AuthPage = observer(() => {
 			let data;
 			if (isLoginPage) {
 				data = await login(email, password);
-				console.log(data);
 			} else {
 				console.log("reg");
 				data = await registration(email, password);
-				console.log(data);
 			}
-			user.setUser(user);
+			user.setUser(data);
 			user.setIsAuth(true);
 			navigate("/");
 		} catch (error) {
@@ -39,16 +36,13 @@ export const AuthPage = observer(() => {
 		}
 	};
 
-	// console.log("Обновление");
-	// console.table("email: " + email, "password: " + password);
-
 	function validateEmail(email) {
-		setEmail(email);
 		const regex =
 			/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 		if (regex.test(email)) {
 			return true;
 		} else {
+			setEmail("");
 			return false;
 		}
 	}
@@ -60,20 +54,55 @@ export const AuthPage = observer(() => {
 					{isLoginPage ? "Авторизация" : "Регистрация"}
 				</h2>
 				<Form className="d-flex flex-column">
-					<Form.Control
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						className="mt-2"
-						placeholder="Введите email"
-						id="inputEmail3"
-					/>
-					<Form.Control
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						className="mt-2"
-						placeholder="Введите пароль"
-						type="password"
-					/>
+					{isLoginPage ? (
+						<>
+							<Form.Control
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+								className="mt-2"
+								placeholder="Введите email"
+								id="inputEmail3"
+							/>
+							<Form.Control
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								className="mt-2"
+								placeholder="Введите пароль"
+								type="password"
+							/>
+						</>
+					) : (
+						<>
+							<Form.Control
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+								className="mt-2"
+								placeholder="Введите email"
+								id="inputEmail3"
+							/>
+							<Form.Control
+								value={firstName}
+								onChange={(e) => setFirstName(e.target.value)}
+								className="mt-2"
+								placeholder="Введите имя"
+								id="inputEmail3"
+							/>
+							<Form.Control
+								value={secondName}
+								onChange={(e) => setSecondName(e.target.value)}
+								className="mt-2"
+								placeholder="Введите фамилию"
+								id="inputEmail3"
+							/>
+							<Form.Control
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								className="mt-2"
+								placeholder="Введите пароль"
+								type="password"
+							/>
+						</>
+					)}
 					<div className="d-flex justify-content-between mt-3 pl-3 pr-3 text-nowrap">
 						{isLoginPage ? (
 							<div className="d-flex">

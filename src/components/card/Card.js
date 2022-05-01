@@ -19,7 +19,7 @@ function Card() {
 						<div className="card-description">
 							<div className="card-description-bg">
 								<h2 className="lead title-pg">
-									Хороший итальянский кофе и вкусные блоучки.
+									Хороший итальянский кофе и вкусные булочки.
 								</h2>
 							</div>
 						</div>
@@ -37,6 +37,7 @@ function Card() {
 								disabled=""
 								id="person-info"
 								value="Петров В.А."
+								readOnly
 							></input>
 						</div>
 						<div className="card-phone-person">
@@ -46,6 +47,7 @@ function Card() {
 								disabled=""
 								id="person-number"
 								value="+79809065849"
+								readOnly
 							></input>
 						</div>
 						<div className="card-name-object">
@@ -55,6 +57,7 @@ function Card() {
 								disabled=""
 								id="name-object"
 								value="Сладкие пирожки"
+								readOnly
 							></input>
 						</div>
 					</div>

@@ -7,7 +7,7 @@ import UserStore from "./store/UserStore";
 
 export const Context = createContext(null);
 
-console.log("http://localhost:8000/");
+// console.log("http://localhost:8000/");
 
 ReactDOM.render(
 	<Context.Provider
