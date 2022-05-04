@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import "./card.css";
+import "./cardannoun.css";
 
-function Card() {
+function CardAnnoun() {
 	return (
 		<div className="card-container">
 			<div className="card-content-container">
@@ -34,7 +34,7 @@ function Card() {
 							<label>ФИО владельца:</label> &nbsp;
 							<input
 								type="text"
-								disabled=""
+								readOnly
 								id="person-info"
 								value="Петров В.А."
 							></input>
@@ -43,7 +43,7 @@ function Card() {
 							<label>Мобильный телефон:</label> &nbsp;
 							<input
 								type="text"
-								disabled=""
+								readOnly
 								id="person-number"
 								value="+79809065849"
 							></input>
@@ -52,7 +52,7 @@ function Card() {
 							<label>Название объекта:</label> &nbsp;
 							<input
 								type="text"
-								disabled=""
+								readOnly
 								id="name-object"
 								value="Сладкие пирожки"
 							></input>
@@ -69,4 +69,4 @@ function Card() {
 	);
 }
 
-export default Card;
+export default CardAnnoun;

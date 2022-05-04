@@ -1,11 +1,11 @@
 import React from "react";
-import Card from "../../components/card/Card";
+import CardAnnoun from "../../components/card/CardAnnoun";
 import "./MainPage.css";
 
 function MainPage() {
 	return (
 		<section className="main-container">
-			<Card />
+			<CardAnnoun />
 		</section>
 	);
 }

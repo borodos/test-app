@@ -10,40 +10,14 @@ export const AuthPage = observer(() => {
 	const location = useLocation();
 	const isLoginPage = location.pathname === "/login";
 
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	// -- Хуки
+	const [email, setEmail] = useState(""); // -- Ввод почты
+	const [password, setPassword] = useState(""); // -- Ввод пароля
+	const { userStore } = useContext(Context); // -- Берем из контекста пользователя
+	const navigate = useNavigate(); // -- Обычная навигация
 
-	const { user } = useContext(Context);
-
-	const navigate = useNavigate();
-
-	const click = async () => {
-		if (!validateEmail(email)) {
-			return alert("Неккоректный email");
-		}
-		try {
-			let data;
-			if (isLoginPage) {
-				data = await login(email, password);
-				console.log(data);
-			} else {
-				console.log("reg");
-				data = await registration(email, password);
-				console.log(data);
-			}
-			user.setUser(user);
-			user.setIsAuth(true);
-			navigate("/");
-		} catch (error) {
-			alert(error.response.data.message);
-		}
-	};
-
-	// console.log("Обновление");
-	// console.table("email: " + email, "password: " + password);
-
-	function validateEmail(email) {
-		setEmail(email);
+	// -- Валидация почты
+	function validateEmail() {
 		const regex =
 			/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 		if (regex.test(email)) {
@@ -53,6 +27,30 @@ export const AuthPage = observer(() => {
 		}
 	}
 
+	// -- "Отправка" формы
+	const sendReqLogAndReg = async () => {
+		if (!validateEmail()) {
+			return alert("Неккоректный email");
+		}
+		try {
+			let data;
+			if (isLoginPage) {
+				data = await login(email, password);
+			} else {
+				console.log("reg");
+				data = await registration(email, password);
+			}
+			userStore.setUser(data);
+			userStore.setIsAuth(true);
+			navigate("/");
+		} catch (error) {
+			alert(error.response.data.message);
+		}
+	};
+
+	// console.log("Обновление");
+	// console.table("email: " + email, "password: " + password);
+
 	return (
 		<Container className="d-flex justify-content-center align-items-center mt-5">
 			<Card className="p-5 w-50">
@@ -61,13 +59,14 @@ export const AuthPage = observer(() => {
 				</h2>
 				<Form className="d-flex flex-column">
 					<Form.Control
+						required
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						className="mt-2"
 						placeholder="Введите email"
-						id="inputEmail3"
 					/>
 					<Form.Control
+						required
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						className="mt-2"
@@ -87,7 +86,7 @@ export const AuthPage = observer(() => {
 							</div>
 						)}
 
-						<Button variant="outline-dark" onClick={click}>
+						<Button variant="outline-dark" onClick={sendReqLogAndReg}>
 							{isLoginPage ? "Войти" : "Регистрация"}
 						</Button>
 					</div>

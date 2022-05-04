@@ -22,7 +22,7 @@
 }
 
 .nav {
-	max-width: 250px;
+	max-width: 150px;
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
@@ -45,4 +45,16 @@
 
 .text:hover {
 	color: #000;
+}
+
+.active-profile {
+	text-decoration: none;
+	letter-spacing: 1px;
+	color: rgb(16, 253, 16);
+	border-bottom: 1px solid rgb(16, 253, 16);
+}
+
+.active-profile:hover {
+	color: aqua;
+	border-bottom: 1px solid #ccc;
 }

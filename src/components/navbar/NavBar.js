@@ -11,17 +11,15 @@ export const NavBar = observer(() => {
 		return isActive ? "active" : "link";
 	}
 
-	const { user } = useContext(Context);
+	const setActiveProfile = ({ isActive }) => {
+		return isActive ? "active-profile" : "link";
+	};
+
+	const { userStore } = useContext(Context);
 
 	const navigate = useNavigate();
 
 	const [modalVisible, setModalVisible] = useState(false);
-
-	const logOut = () => {
-		user.setUser({});
-		user.setIsAuth(false);
-		navigate("/");
-	};
 
 	return (
 		<Navbar bg="dark" variant="dark">
@@ -32,20 +30,17 @@ export const NavBar = observer(() => {
 					</Link>
 				</Navbar.Brand>
 
-				{user._isAuth ? (
+				{userStore._isAuth ? (
 					<>
-						<Nav className="ml-auto nav">
+						<Nav className="nav">
 							<NavLink to="/search" className={setActive}>
 								Найти еду
 							</NavLink>
 							<NavLink to="/basket" className={setActive}>
 								Заказы
 							</NavLink>
-							<NavLink to="/profile" className={setActive}>
-								Профиль
-							</NavLink>
 						</Nav>
-						<Nav className="ml-auto">
+						<div>
 							<Button
 								className="me-2"
 								variant={"outline-light"}
@@ -54,10 +49,10 @@ export const NavBar = observer(() => {
 								Создать объявление
 							</Button>
 
-							<Button variant={"outline-light"} onClick={logOut}>
-								Выйти
-							</Button>
-						</Nav>
+							<NavLink to="/profile" className={setActiveProfile}>
+								{userStore.user.email}
+							</NavLink>
+						</div>
 					</>
 				) : (
 					<Nav className="ml-auto">
