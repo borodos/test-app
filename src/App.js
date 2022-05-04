@@ -1,10 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-<<<<<<< HEAD
 import { Container, Spinner } from "react-bootstrap";
-=======
-import { Spinner } from "react-bootstrap";
->>>>>>> master
 import { BrowserRouter } from "react-router-dom";
 import { Context } from ".";
 import { NavBar } from "./components/navbar/NavBar";
@@ -20,13 +16,8 @@ export const App = observer(() => {
 	useEffect(() => {
 		check()
 			.then((data) => {
-<<<<<<< HEAD
-				user.setUser(data);
-				user.setIsAuth(true);
-=======
 				userStore.setUser(data);
 				userStore.setIsAuth(true);
->>>>>>> master
 			})
 			.finally(() => setLoading(false));
 	});

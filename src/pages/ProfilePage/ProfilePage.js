@@ -9,14 +9,14 @@ import "./ProfilePage.css";
 import { Input } from "@mui/icons-material";
 
 function ProfilePage() {
-	const { user } = useContext(Context);
+	const { userStore } = useContext(Context);
 	const navigate = useNavigate();
 	const [overlay, setOverlay] = useState(false);
 
 	console.log(overlay);
 	const logOut = () => {
-		user.setUser({});
-		user.setIsAuth(false);
+		userStore.setUser({});
+		userStore.setIsAuth(false);
 		navigate("/");
 	};
 
@@ -43,10 +43,10 @@ function ProfilePage() {
 						</div>
 						<div className="border p-2">
 							<div>
-								Логин: <span>{user.user.email}</span>
+								Логин: <span>{userStore.user.email}</span>
 							</div>
 							<div>
-								ID: <span>{user.user.id}</span>
+								ID: <span>{userStore.user.id}</span>
 							</div>
 						</div>
 						<IconButton title="Добавить фото">
@@ -63,17 +63,17 @@ function ProfilePage() {
 						<div>
 							<span className="fw-bold fst-italic">Имя:</span>
 							&nbsp;
-							<span>{user.user.email}</span>
+							<span>{userStore.user.email}</span>
 						</div>
 						<div>
 							<span className="fw-bold fst-italic">Отчество:</span>
 							&nbsp;
-							<span>{user.user.email}</span>
+							<span>{userStore.user.email}</span>
 						</div>
 						<div>
 							<span className="fw-bold fst-italic">Фамилия:</span>
 							&nbsp;
-							<span>{user.user.email}</span>
+							<span>{userStore.user.email}</span>
 						</div>
 					</div>
 				</Card.Body>
