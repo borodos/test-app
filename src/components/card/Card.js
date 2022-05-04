@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "./card.css";
 
 function Card() {
+	const [card, setCard] = useState([
+		{
+			title: "Аппетитный хот-дог",
+			description: "Хороший итальянский кофе и вкусные булочки<",
+		},
+	]);
+
 	return (
 		<div className="card-container">
 			<div className="card-content-container">
