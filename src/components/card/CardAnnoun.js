@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import "./card.css";
+import "./cardannoun.css";
 
-function Card() {
+function CardAnnoun() {
 	const [card, setCard] = useState([
 		{
 			title: "Аппетитный хот-дог",
@@ -41,30 +41,30 @@ function Card() {
 							<label>ФИО владельца:</label> &nbsp;
 							<input
 								type="text"
-								disabled=""
+								readOnly
 								id="person-info"
 								value="Петров В.А."
-								readOnly
+								
 							></input>
 						</div>
 						<div className="card-phone-person">
 							<label>Мобильный телефон:</label> &nbsp;
 							<input
 								type="text"
-								disabled=""
+								readOnly
 								id="person-number"
 								value="+79809065849"
-								readOnly
+								
 							></input>
 						</div>
 						<div className="card-name-object">
 							<label>Название объекта:</label> &nbsp;
 							<input
 								type="text"
-								disabled=""
+								readOnly
 								id="name-object"
 								value="Сладкие пирожки"
-								readOnly
+								
 							></input>
 						</div>
 					</div>
@@ -79,4 +79,4 @@ function Card() {
 	);
 }
 
-export default Card;
+export default CardAnnoun;

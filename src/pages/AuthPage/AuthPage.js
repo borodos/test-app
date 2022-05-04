@@ -6,18 +6,20 @@ import { Context } from "../..";
 import { login, registration } from "../../http/userAPI";
 
 export const AuthPage = observer(() => {
+	// -- Хуки
 	// -- Получаем маршрут в строке запроса
 	const location = useLocation();
 	const isLoginPage = location.pathname === "/login";
-	const [email, setEmail] = useState("");
+	const [email, setEmail] = useState(""); // -- Ввод почты
 	const [firstName, setFirstName] = useState("");
 	const [secondName, setSecondName] = useState("");
-	const [password, setPassword] = useState("");
-	const { user } = useContext(Context);
-	const navigate = useNavigate();
+	const [password, setPassword] = useState(""); // -- Ввод пароля
+	const { userStore } = useContext(Context); // -- Берем из контекста пользователя
+	const navigate = useNavigate(); // -- Обычная навигация
 
-	const click = async () => {
-		if (!validateEmail(email)) {
+	// -- "Отправка" формы
+	const sendReqLogAndReg = async () => {
+		if (!validateEmail()) {
 			return alert("Неккоректный email");
 		}
 		try {
@@ -28,8 +30,8 @@ export const AuthPage = observer(() => {
 				console.log("reg");
 				data = await registration(email, password);
 			}
-			user.setUser(data);
-			user.setIsAuth(true);
+			userStore.setUser(data);
+			userStore.setIsAuth(true);
 			navigate("/");
 		} catch (error) {
 			alert(error.response.data.message);
@@ -116,7 +118,7 @@ export const AuthPage = observer(() => {
 							</div>
 						)}
 
-						<Button variant="outline-dark" onClick={click}>
+						<Button variant="outline-dark" onClick={sendReqLogAndReg}>
 							{isLoginPage ? "Войти" : "Регистрация"}
 						</Button>
 					</div>
