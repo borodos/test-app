@@ -1,8 +1,8 @@
-import BasketPage from "./pages/BasketPage/BasketPage";
-import MainPage from "./pages/MainPage/MainPage";
-import ProfilePage from "./pages/ProfilePage/ProfilePage";
-import SearchPage from "./pages/SearchPage/SearchPage";
-import { AuthPage } from "./pages/AuthPage/AuthPage";
+import BasketPage from "../src/pages/BasketPage";
+import MainPage from "../src/pages/MainPage";
+import { ProfilePage } from "../src/pages/ProfilePage";
+import SearchPage from "../src/pages/SearchPage";
+import { AuthPage } from "../src/pages/AuthPage";
 
 export const privateRoutes = [
 	{

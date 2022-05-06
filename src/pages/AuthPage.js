@@ -2,8 +2,8 @@ import { observer } from "mobx-react-lite";
 import React, { useContext, useState } from "react";
 import { Button, Card, Container, Form } from "react-bootstrap";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { Context } from "../..";
-import { login, registration } from "../../http/userAPI";
+import { Context } from "..";
+import { getUserInfo, login, registration } from "../http/userAPI";
 
 export const AuthPage = observer(() => {
 	// -- Хуки
@@ -19,7 +19,7 @@ export const AuthPage = observer(() => {
 
 	// -- "Отправка" формы
 	const sendReqLogAndReg = async () => {
-		if (!validateEmail()) {
+		if (!validateEmail) {
 			return alert("Неккоректный email");
 		}
 		try {
@@ -27,10 +27,11 @@ export const AuthPage = observer(() => {
 			if (isLoginPage) {
 				data = await login(email, password);
 			} else {
-				console.log("reg");
-				data = await registration(email, password);
+				data = await registration(email, password, firstName, secondName);
 			}
+			let userinfo = await getUserInfo();
 			userStore.setUser(data);
+			userStore.setUserInfo(userinfo);
 			userStore.setIsAuth(true);
 			navigate("/");
 		} catch (error) {

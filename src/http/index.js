@@ -2,11 +2,11 @@ import axios from "axios";
 
 const $host = axios.create({
 	// -- Указываем url, куда будут отправляться запросы
-	baseURL: "http://localhost:8000/",
+	baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
 const $authHost = axios.create({
-	baseURL: "http://localhost:8000/",
+	baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
 // -- Так как в случае второго экземпляра нужно к каждому запросу автоматически подставлять токен, создадим интерцептор

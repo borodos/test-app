@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { takeBasket } from "../../http/basketApi";
+import { takeBasket } from "../http/basketApi";
 
 function BasketPage() {
 	let [basketUser, setBasketUser] = useState(0);

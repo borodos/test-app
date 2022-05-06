@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { App } from "./App";
 import UserStore from "./store/UserStore";
-import RegPage from "./pages/RegPage/RegPage";
+import RegPage from "./pages/RegPage";
 export const Context = createContext(null);
 
 // console.log("http://localhost:8000/");

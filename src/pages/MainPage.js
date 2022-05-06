@@ -1,6 +1,6 @@
 import React from "react";
-import CardAnnoun from "../../components/card/CardAnnoun";
-import "./MainPage.css";
+import CardAnnoun from "../components/card/CardAnnoun";
+import "../css/MainPage.css";
 
 function MainPage() {
 	return (

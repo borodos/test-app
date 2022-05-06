@@ -1,10 +1,10 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import { Container, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { BrowserRouter } from "react-router-dom";
 import { Context } from ".";
 import { NavBar } from "./components/navbar/NavBar";
-import { check } from "./http/userAPI";
+import { check, getUserInfo } from "./http/userAPI";
 import { AppRouter } from "./navigation/AppRouter";
 
 // const API_KEY = process.env.REACT_APP_API_KEY;
@@ -14,15 +14,20 @@ export const App = observer(() => {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		check()
-			.then((data) => {
-				userStore.setUser(data);
-				userStore.setIsAuth(true);
-			})
-			.finally(() => setLoading(false));
+		try {
+			check()
+				.then((data) => {
+					userStore.setUser(data);
+					userStore.setIsAuth(true);
+				})
+				.finally(() => setLoading(false));
+			getUserInfo().then((data) => {
+				userStore.setUserInfo(data);
+			});
+		} catch (error) {
+			console.log("Ошибка");
+		}
 	});
-
-	console.log("APP обновился");
 
 	if (loading) {
 		return (

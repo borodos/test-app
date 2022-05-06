@@ -1,13 +1,5 @@
 import { useState } from "react";
-import {
-	Button,
-	Card,
-	Col,
-	Container,
-	Form,
-	InputGroup,
-	Row,
-} from "react-bootstrap";
+import { Button, Card, Container, Form, Row } from "react-bootstrap";
 
 function RegPage() {
 	const [validated, setValidated] = useState(false);
