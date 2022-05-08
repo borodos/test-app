@@ -1,5 +1,5 @@
 import BasketPage from "../src/pages/BasketPage";
-import MainPage from "../src/pages/MainPage";
+import { MainPage } from "../src/pages/MainPage";
 import { ProfilePage } from "../src/pages/ProfilePage";
 import SearchPage from "../src/pages/SearchPage";
 import { AuthPage } from "../src/pages/AuthPage";

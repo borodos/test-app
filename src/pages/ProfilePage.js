@@ -1,19 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Button, Card, Container, Form } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Button, Card, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { Context } from "..";
 import Image from "../img/anonim.jpg";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { IconButton } from "@mui/material";
 import "../css/ProfilePage.css";
-import { getImage, getUserInfo, setImage } from "../http/userAPI";
-import ImageProfile from "../components/modals/ImageProfile";
+import ImageProfile from "../components/Modals/ImageProfile";
 import { observer } from "mobx-react-lite";
 
 export const ProfilePage = observer(() => {
 	const { userStore } = useContext(Context);
 	const navigate = useNavigate();
-	const [file, setFile] = useState();
 	const [modalVisible, setModalVisible] = useState(false);
 
 	const logOut = () => {

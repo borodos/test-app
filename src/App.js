@@ -3,10 +3,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { BrowserRouter } from "react-router-dom";
 import { Context } from ".";
-import { NavBar } from "./components/navbar/NavBar";
+import { Footer } from "./components/Footer/Footer";
+import { NavBar } from "./components/NavBar/NavBar";
 import { check, getUserInfo } from "./http/userAPI";
 import { AppRouter } from "./navigation/AppRouter";
-
+import "./css/Main.css";
 // const API_KEY = process.env.REACT_APP_API_KEY;
 
 export const App = observer(() => {
@@ -42,9 +43,12 @@ export const App = observer(() => {
 	}
 
 	return (
-		<BrowserRouter>
-			<NavBar />
-			<AppRouter />
-		</BrowserRouter>
+		<div className="wrapper">
+			<BrowserRouter>
+				<NavBar />
+				<AppRouter />
+				<Footer />
+			</BrowserRouter>
+		</div>
 	);
 });

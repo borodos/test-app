@@ -1,21 +1,12 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import ImageLoader from "react-imageloader";
 import { Context } from "../..";
 import { setImage } from "../../http/userAPI";
-import Image from "../../img/398721.jpg";
-import Image1 from "../../img/anonim.jpg";
 
 function ImageProfile({ show, onHide }) {
 	const { userStore } = useContext(Context);
 	const [file, setFile] = useState();
 	const [profileImg, setProfileImg] = useState({});
-	const imgRef = useRef(null);
-
-	const imgErrorLoad = () => {
-		const a = imgRef.current.style;
-		a.display = "none";
-	};
 
 	const selectFile = (event) => {
 		setFile(event.target.files[0]);
@@ -54,11 +45,9 @@ function ImageProfile({ show, onHide }) {
 					style={{ width: "240px", height: "200px" }}
 				>
 					<img
-						ref={imgRef}
 						style={{ width: "inherit", height: "inherit" }}
 						src={profileImg}
 						alt=""
-						onError={imgErrorLoad}
 					/>
 				</div>
 				<div className="w-50 mt-3">

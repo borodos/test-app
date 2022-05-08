@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
 import { takeBasket } from "../http/basketApi";
+import "../css/BasketPage.css";
 
 function BasketPage() {
 	let [basketUser, setBasketUser] = useState(0);
@@ -10,7 +12,11 @@ function BasketPage() {
 		});
 	}, [basketUser]);
 
-	return <div>Basket {basketUser}</div>;
+	return (
+		<Container className="flex-grow-1">
+			<div>Basket {basketUser}</div>
+		</Container>
+	);
 }
 
 export default BasketPage;

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import "./cardannoun.css";
+import "../../css/CardAnnoun.css";
 
 function CardAnnoun() {
 	const [card, setCard] = useState([
 		{
 			title: "Аппетитный хот-дог",
-			description: "Хороший итальянский кофе и вкусные булочки<",
+			description: "Хороший итальянский кофе и вкусные булочки",
 		},
 	]);
 
@@ -44,7 +44,6 @@ function CardAnnoun() {
 								readOnly
 								id="person-info"
 								value="Петров В.А."
-								
 							></input>
 						</div>
 						<div className="card-phone-person">
@@ -54,7 +53,6 @@ function CardAnnoun() {
 								readOnly
 								id="person-number"
 								value="+79809065849"
-								
 							></input>
 						</div>
 						<div className="card-name-object">
@@ -64,13 +62,19 @@ function CardAnnoun() {
 								readOnly
 								id="name-object"
 								value="Сладкие пирожки"
-								
 							></input>
 						</div>
 					</div>
 					<div className="card-search">
-						<Button type="button" id="btn-announ-search">
+						<Button type="button" id="btn-announ-search" className="me-2">
 							Найти на карте
+						</Button>
+						<Button
+							type="button"
+							id="btn-announ-search"
+							variant="outline-success"
+						>
+							Забрать
 						</Button>
 					</div>
 				</div>

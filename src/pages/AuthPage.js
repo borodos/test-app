@@ -4,11 +4,11 @@ import { Button, Card, Container, Form } from "react-bootstrap";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Context } from "..";
 import { getUserInfo, login, registration } from "../http/userAPI";
+import "../css/AuthPage.css";
 
 export const AuthPage = observer(() => {
 	// -- Хуки
-	// -- Получаем маршрут в строке запроса
-	const location = useLocation();
+	const location = useLocation(); // -- Получаем маршрут в строке запроса
 	const isLoginPage = location.pathname === "/login";
 	const [email, setEmail] = useState(""); // -- Ввод почты
 	const [firstName, setFirstName] = useState("");

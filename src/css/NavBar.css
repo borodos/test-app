@@ -25,6 +25,7 @@
 	max-width: 150px;
 	width: 100%;
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
 }
 
@@ -57,4 +58,8 @@
 .active-profile:hover {
 	color: aqua;
 	border-bottom: 1px solid #ccc;
+}
+
+.basket {
+	background-color: #fff;
 }
