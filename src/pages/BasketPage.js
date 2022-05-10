@@ -4,11 +4,12 @@ import { takeBasket } from "../http/basketApi";
 import "../css/BasketPage.css";
 
 function BasketPage() {
-	let [basketUser, setBasketUser] = useState(0);
+	const [basketUser, setBasketUser] = useState(0);
 
 	useEffect(() => {
 		takeBasket().then((basketId) => {
 			setBasketUser(basketId);
+			console.log(basketUser);
 		});
 	}, [basketUser]);
 

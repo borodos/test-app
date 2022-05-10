@@ -8,17 +8,17 @@ import { announGetAll } from "../http/announApi";
 export const MainPage = observer(() => {
 	const { announStore } = useContext(Context);
 
-	// useEffect(() => {
-	// 	announGetAll().then((data) => {
-	// 		announStore.setAnnouns(data);
-	// 	});
-	// });
+	useEffect(() => {
+		announGetAll().then((data) => {
+			announStore.setAnnouns(data);
+		});
+	}, [announStore]);
+
 	return (
 		<section className="main-page">
-			{/* {announStore.announs.map((value) => (
-				<CardAnnoun />
-			))} */}
-			<CardAnnoun />
+			{announStore.announs.map((value, index) => (
+				<CardAnnoun key={`${value}-${index}`} />
+			))}
 		</section>
 	);
 });

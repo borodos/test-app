@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../..";
 import { announCreate } from "../../http/announApi";
 
 function CreateCard({ show, onHide }) {
 	const { announStore } = useContext(Context);
-
+	const navigate = useNavigate();
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [phone, setPhone] = useState("");
@@ -19,10 +20,9 @@ function CreateCard({ show, onHide }) {
 		formData.append("phone", phone);
 		formData.append("nameObject", nameObject);
 		formData.append("img", file);
-		let data = await announCreate(formData);
+		const data = await announCreate(formData);
 		console.log(data);
-		announStore.setAnnouns(data);
-		console.log(announStore.announs);
+		onHide();
 	};
 
 	return (

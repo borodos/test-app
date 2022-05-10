@@ -4,7 +4,7 @@ import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Context } from "../../index";
 import "../../css/NavBar.css";
-import CreateCard from "../Modals/CreateCard";
+import CreateCard from "../modals/CreateCard";
 import { Badge } from "@mui/material";
 import { Email, ShoppingCart } from "@mui/icons-material";
 
