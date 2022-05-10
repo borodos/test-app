@@ -5,6 +5,7 @@ import { App } from "./App";
 import UserStore from "./store/UserStore";
 import AnnounStore from "./store/AnnounStore";
 import RegPage from "./pages/RegPage";
+import BasketStore from "./store/BasketStore";
 export const Context = createContext(null);
 
 // console.log("http://localhost:8000/");
@@ -14,6 +15,7 @@ ReactDOM.render(
 		value={{
 			userStore: new UserStore(),
 			announStore: new AnnounStore(),
+			basketStore: new BasketStore(),
 		}}
 	>
 		<App />

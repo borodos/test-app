@@ -1,33 +1,52 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { Context } from "../..";
 import "../../css/CardAnnoun.css";
+import { addToBasket, getBasketForMessages } from "../../http/basketApi";
+import Image from "../../img/24192-ed4_wide.jpg";
+import { SnackbarAddToBasket } from "../Snackbar";
+export const CardAnnoun = ({ announInfo }) => {
+	const { userStore } = useContext(Context);
 
-function CardAnnoun() {
-	const [card, setCard] = useState([
-		{
-			title: "Аппетитный хот-дог",
-			description: "Хороший итальянский кофе и вкусные булочки",
-		},
-	]);
+	const [show, setShow] = useState(false);
+	const toggleShow = () => setShow(!show);
+
+	const addOrderToBasket = () => {
+		addToBasket(announInfo)
+			.then(() => {
+				toggleShow();
+				getBasketForMessages().then((data) => {
+					userStore.setBasketMessages(data);
+				});
+			})
+			.catch((error) => {
+				alert(error.response.data.message);
+			});
+	};
+
+	const bgStyle = {
+		background: `url(${
+			process.env.REACT_APP_SERVER_URL + announInfo.img
+		}) no-repeat`,
+		backgroundSize: "100%",
+	};
 
 	return (
 		<div className="card-container">
-			<div className="card-content-container">
+			<div className="card-content-container" style={bgStyle}>
 				<div className="card-content">
-					<Button className="w-25 btn-secondary">Нет акций</Button>
+					{/* <Button className="w-25 btn-secondary">Нет акций</Button> */}
 					<div className="card-main">
-						<div className="card-title">
+						<div className="card-title d-flex">
 							<div className="card-title-bg">
 								<h1 className="display-4 title-content">
-									"Аппетитный хот-дог"
+									"{announInfo.title}"
 								</h1>
 							</div>
 						</div>
-						<div className="card-description">
+						<div className="card-description d-flex">
 							<div className="card-description-bg">
-								<h2 className="lead title-pg">
-									Хороший итальянский кофе и вкусные булочки.
-								</h2>
+								<h2 className="lead title-pg">{announInfo.description}</h2>
 							</div>
 						</div>
 					</div>
@@ -38,31 +57,16 @@ function CardAnnoun() {
 				<div className="card-info-content">
 					<div className="card-common-info">
 						<div className="card-name-person">
-							<label>ФИО владельца:</label> &nbsp;
-							<input
-								type="text"
-								readOnly
-								id="person-info"
-								value="Петров В.А."
-							></input>
+							<span>ФИО владельца:</span> &nbsp;
+							<span>Петров В.А.</span>
 						</div>
 						<div className="card-phone-person">
 							<label>Мобильный телефон:</label> &nbsp;
-							<input
-								type="text"
-								readOnly
-								id="person-number"
-								value="+79809065849"
-							></input>
+							<span>+79809065849</span>
 						</div>
 						<div className="card-name-object">
-							<label>Название объекта:</label> &nbsp;
-							<input
-								type="text"
-								readOnly
-								id="name-object"
-								value="Сладкие пирожки"
-							></input>
+							<span>Название объекта:</span> &nbsp;
+							<span>Сладкие пирожки</span>
 						</div>
 					</div>
 					<div className="card-search">
@@ -73,14 +77,14 @@ function CardAnnoun() {
 							type="button"
 							id="btn-announ-search"
 							variant="outline-success"
+							onClick={addOrderToBasket}
 						>
 							Забрать
 						</Button>
 					</div>
 				</div>
 			</div>
+			<SnackbarAddToBasket show={show} onClose={toggleShow} />
 		</div>
 	);
-}
-
-export default CardAnnoun;
+};

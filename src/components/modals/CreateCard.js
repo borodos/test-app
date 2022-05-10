@@ -1,12 +1,10 @@
 import React, { useContext, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { Context } from "../..";
-import { announCreate } from "../../http/announApi";
+import { announCreate, announGetAll } from "../../http/announApi";
 
 function CreateCard({ show, onHide }) {
 	const { announStore } = useContext(Context);
-	const navigate = useNavigate();
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [phone, setPhone] = useState("");
@@ -22,6 +20,13 @@ function CreateCard({ show, onHide }) {
 		formData.append("img", file);
 		const data = await announCreate(formData);
 		console.log(data);
+		announGetAll()
+			.then((data) => {
+				announStore.setAnnouns(data);
+			})
+			.catch((error) => {
+				alert(error.response.data.message);
+			});
 		onHide();
 	};
 
@@ -35,7 +40,7 @@ function CreateCard({ show, onHide }) {
 		>
 			<Modal.Header closeButton>
 				<Modal.Title id="contained-modal-title-vcenter">
-					Modal heading
+					Добавить объявление
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>

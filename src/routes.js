@@ -1,8 +1,9 @@
-import BasketPage from "../src/pages/BasketPage";
+import { BasketPage } from "../src/pages/BasketPage";
 import { MainPage } from "../src/pages/MainPage";
 import { ProfilePage } from "../src/pages/ProfilePage";
 import SearchPage from "../src/pages/SearchPage";
 import { AuthPage } from "../src/pages/AuthPage";
+import { UserAnnounsPage } from "../src/pages/UserAnnounsPage";
 
 export const privateRoutes = [
 	{
@@ -18,6 +19,11 @@ export const privateRoutes = [
 	{
 		path: "/search",
 		component: <SearchPage />,
+	},
+
+	{
+		path: "/my_announs",
+		component: <UserAnnounsPage />,
 	},
 ];
 

@@ -3,6 +3,7 @@ import { makeAutoObservable } from "mobx";
 export default class UserStroe {
 	constructor() {
 		this._isAuth = false;
+		this._basketMessages = 0;
 		this._user = {};
 		this._userInfo = {};
 		// -- Заставляем класс следить за измененями. Если изменение произошло, класс говорить функциями, у которых есть observer, что произошло изменение, и функция перерендеривается
@@ -11,6 +12,10 @@ export default class UserStroe {
 
 	setIsAuth(bool) {
 		this._isAuth = bool;
+	}
+
+	setBasketMessages(messages) {
+		this._basketMessages = messages;
 	}
 
 	setUser(user) {
@@ -23,6 +28,10 @@ export default class UserStroe {
 
 	get isAuth() {
 		return this._isAuth;
+	}
+
+	get basketMessages() {
+		return this._basketMessages;
 	}
 
 	get user() {

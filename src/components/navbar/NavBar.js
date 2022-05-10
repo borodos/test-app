@@ -1,21 +1,32 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Context } from "../../index";
 import "../../css/NavBar.css";
-import CreateCard from "../modals/CreateCard";
+import CreateCard from "../Modals/CreateCard";
 import { Badge } from "@mui/material";
 import { Email, ShoppingCart } from "@mui/icons-material";
+import { getBasketForMessages } from "../../http/basketApi";
 
 export const NavBar = observer(() => {
 	const { userStore } = useContext(Context);
 	const navigate = useNavigate();
 	const [modalVisible, setModalVisible] = useState(false);
 
-	function setActive({ isActive }) {
+	useEffect(() => {
+		getBasketForMessages()
+			.then((data) => {
+				userStore.setBasketMessages(data);
+			})
+			.catch((error) => {
+				alert(error.response.data.message);
+			});
+	}, [userStore]);
+
+	const setActive = ({ isActive }) => {
 		return isActive ? "active" : "link";
-	}
+	};
 
 	const setActiveProfile = ({ isActive }) => {
 		return isActive ? "active-profile" : "link";
@@ -32,23 +43,39 @@ export const NavBar = observer(() => {
 
 				{userStore._isAuth ? (
 					<>
-						<Nav className="nav">
-							<NavLink to="/search" className={setActive}>
-								Найти еду
-							</NavLink>
-							<NavLink to="/basket" className={setActive}>
-								Заказы
-							</NavLink>
-						</Nav>
+						{userStore.user.role === "ADMIN" ? (
+							<Nav className="nav" style={{ maxWidth: "300px" }}>
+								<NavLink to="/search" className={setActive}>
+									Найти еду
+								</NavLink>
+								<NavLink to="/basket" className={setActive}>
+									Заказы
+								</NavLink>
+								<NavLink to="/my_announs" className={setActive}>
+									Мои объявления
+								</NavLink>
+							</Nav>
+						) : (
+							<Nav className="nav" style={{ maxWidth: "150px" }}>
+								<NavLink to="/search" className={setActive}>
+									Найти еду
+								</NavLink>
+								<NavLink to="/basket" className={setActive}>
+									Заказы
+								</NavLink>
+							</Nav>
+						)}
 						<Nav>
 							<div className="d-flex flex-row justify-content-center align-items-center">
-								<Button
-									className="me-2"
-									variant={"outline-light"}
-									onClick={() => setModalVisible(true)}
-								>
-									Создать объявление
-								</Button>
+								{userStore.user.role === "ADMIN" ? (
+									<Button
+										className="me-2"
+										variant={"outline-light"}
+										onClick={() => setModalVisible(true)}
+									>
+										Создать объявление
+									</Button>
+								) : null}
 
 								<div>
 									<NavLink to="/profile" className={setActiveProfile}>
@@ -61,7 +88,10 @@ export const NavBar = observer(() => {
 									aria-label="cart"
 									onClick={() => navigate("/basket")}
 								>
-									<Badge badgeContent={4} color="secondary">
+									<Badge
+										badgeContent={userStore.basketMessages}
+										color="secondary"
+									>
 										<ShoppingCart />
 									</Badge>
 								</Button>

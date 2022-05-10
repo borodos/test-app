@@ -4,7 +4,7 @@ import { Spinner } from "react-bootstrap";
 import { BrowserRouter } from "react-router-dom";
 import { Context } from ".";
 import { Footer } from "./components/Footer/Footer";
-import { NavBar } from "./components/navbar/NavBar";
+import { NavBar } from "./components/NavBar/NavBar";
 import { check, getUserInfo } from "./http/userAPI";
 import { AppRouter } from "./navigation/AppRouter";
 import "./css/Main.css";
@@ -26,7 +26,7 @@ export const App = observer(() => {
 				userStore.setUserInfo(data);
 			});
 		} catch (error) {
-			console.log("Ошибка");
+			alert(error.response.data.message);
 		}
 	}, []);
 

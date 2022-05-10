@@ -10,7 +10,7 @@ function SearchPage() {
 	// });
 
 	return (
-		<div>
+		<div className="flex-grow-1">
 			<div>Search</div>
 		</div>
 	);

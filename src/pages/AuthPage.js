@@ -51,7 +51,7 @@ export const AuthPage = observer(() => {
 	}
 
 	return (
-		<Container className="d-flex justify-content-center align-items-center mt-5">
+		<Container className="d-flex justify-content-center align-items-center flex-grow-1 mt-5">
 			<Card className="p-5 w-50">
 				<h2 className="m-auto mb-2">
 					{isLoginPage ? "Авторизация" : "Регистрация"}

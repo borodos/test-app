@@ -6,7 +6,7 @@ import Image from "../img/anonim.jpg";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { IconButton } from "@mui/material";
 import "../css/ProfilePage.css";
-import ImageProfile from "../components/modals/ImageProfile";
+import ImageProfile from "../components/Modals/ImageProfile";
 import { observer } from "mobx-react-lite";
 
 export const ProfilePage = observer(() => {
