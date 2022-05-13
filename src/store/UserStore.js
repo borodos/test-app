@@ -4,6 +4,7 @@ export default class UserStroe {
 	constructor() {
 		this._isAuth = false;
 		this._basketMessages = 0;
+		this._userMessages = 0;
 		this._user = {};
 		this._userInfo = {};
 		// -- Заставляем класс следить за измененями. Если изменение произошло, класс говорить функциями, у которых есть observer, что произошло изменение, и функция перерендеривается
@@ -16,6 +17,10 @@ export default class UserStroe {
 
 	setBasketMessages(messages) {
 		this._basketMessages = messages;
+	}
+
+	setUserMessages(messages) {
+		this._userMessages = messages;
 	}
 
 	setUser(user) {
@@ -32,6 +37,10 @@ export default class UserStroe {
 
 	get basketMessages() {
 		return this._basketMessages;
+	}
+
+	get userMessages() {
+		return this._userMessages;
 	}
 
 	get user() {

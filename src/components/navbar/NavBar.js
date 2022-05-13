@@ -99,8 +99,12 @@ export const NavBar = observer(() => {
 									className="ms-2 rounded-circle"
 									variant="secondary"
 									aria-label="message"
+									onClick={() => navigate("/my_messages")}
 								>
-									<Badge badgeContent={4} color="secondary">
+									<Badge
+										badgeContent={userStore.userMessages}
+										color="secondary"
+									>
 										<Email />
 									</Badge>
 								</Button>

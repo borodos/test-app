@@ -13,6 +13,7 @@ export const BasketPage = observer(() => {
 	const toggleShow = () => setShowSnack(!showSnack);
 
 	useEffect(() => {
+		console.log("basket");
 		getBasket()
 			.then((data) => {
 				basketStore.setOrders(data);

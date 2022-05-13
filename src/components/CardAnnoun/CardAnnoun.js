@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
 import { Context } from "../..";
 import "../../css/CardAnnoun.css";
 import { addToBasket, getBasketForMessages } from "../../http/basketApi";
-import Image from "../../img/24192-ed4_wide.jpg";
 import { SnackbarAddToBasket } from "../Snackbar";
 export const CardAnnoun = ({ announInfo }) => {
 	const { userStore } = useContext(Context);
