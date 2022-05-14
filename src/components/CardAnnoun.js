@@ -1,9 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { Context } from "../..";
-import "../../css/CardAnnoun.css";
-import { addToBasket, getBasketForMessages } from "../../http/basketApi";
-import { SnackbarAddToBasket } from "../Snackbar";
+import { Context } from "..";
+import "../css/CardAnnoun.css";
+import { addToBasket, getBasketForMessages } from "../http/basketApi";
+import { getUserInfo } from "../http/userAPI";
+import { SnackbarAddToBasket } from "./Snackbar";
+
 export const CardAnnoun = ({ announInfo }) => {
 	const { userStore } = useContext(Context);
 
@@ -56,16 +58,13 @@ export const CardAnnoun = ({ announInfo }) => {
 				<div className="card-info-content">
 					<div className="card-common-info">
 						<div className="card-name-person">
-							<span>ФИО владельца:</span> &nbsp;
-							<span>Петров В.А.</span>
+							<span>ФИО владельца: {announInfo.person}</span>
 						</div>
 						<div className="card-phone-person">
-							<label>Мобильный телефон:</label> &nbsp;
-							<span>+79809065849</span>
+							<span>Мобильный телефон: {announInfo.phone}</span>
 						</div>
 						<div className="card-name-object">
-							<span>Название объекта:</span> &nbsp;
-							<span>Сладкие пирожки</span>
+							<span>Название объекта: "{announInfo.nameObject}"</span> &nbsp;
 						</div>
 					</div>
 					<div className="card-search">

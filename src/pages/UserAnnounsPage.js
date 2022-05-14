@@ -11,9 +11,13 @@ export const UserAnnounsPage = observer(() => {
 		setRefresh(!refresh);
 	};
 	useEffect(() => {
-		announGetAllForUser().then((data) => {
-			setAnnounsUser(data);
-		});
+		announGetAllForUser()
+			.then((data) => {
+				setAnnounsUser(data);
+			})
+			.catch((error) => {
+				alert(error.response.data.message);
+			});
 	}, [refresh]);
 
 	return (

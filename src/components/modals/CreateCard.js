@@ -5,6 +5,7 @@ import { announCreate, announGetAll } from "../../http/announApi";
 
 function CreateCard({ show, onHide }) {
 	const { announStore } = useContext(Context);
+	const { userStore } = useContext(Context);
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [phone, setPhone] = useState("");
@@ -15,11 +16,14 @@ function CreateCard({ show, onHide }) {
 		const formData = new FormData();
 		formData.append("title", title);
 		formData.append("description", description);
+		formData.append(
+			"person",
+			`${userStore.userInfo.firstName} ${userStore.userInfo.secondName}`
+		);
 		formData.append("phone", phone);
 		formData.append("nameObject", nameObject);
 		formData.append("img", file);
 		const data = await announCreate(formData);
-		console.log(data);
 		announGetAll()
 			.then((data) => {
 				announStore.setAnnouns(data);

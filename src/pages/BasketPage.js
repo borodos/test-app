@@ -5,15 +5,19 @@ import "../css/BasketPage.css";
 import { Context } from "..";
 import { Order } from "../components/Order";
 import { observer } from "mobx-react-lite";
-import { SnackbarDeleteOrder } from "../components/Snackbar";
+import {
+	SnackbarConfirmOrder,
+	SnackbarDeleteOrder,
+} from "../components/Snackbar";
 
 export const BasketPage = observer(() => {
 	const { basketStore } = useContext(Context);
-	const [showSnack, setShowSnack] = useState(false);
-	const toggleShow = () => setShowSnack(!showSnack);
+	const [showSnackDelete, setShowSnackDelete] = useState(false);
+	const toggleShowDelete = () => setShowSnackDelete(!showSnackDelete);
+	const [showSnackConfirm, setShowSnackConfirm] = useState(false);
+	const toggleShowConfirm = () => setShowSnackConfirm(!showSnackConfirm);
 
 	useEffect(() => {
-		console.log("basket");
 		getBasket()
 			.then((data) => {
 				basketStore.setOrders(data);
@@ -21,7 +25,7 @@ export const BasketPage = observer(() => {
 			.catch((error) => {
 				alert(error.response.data.message);
 			});
-	}, []);
+	}, [basketStore]);
 
 	return (
 		<Container className="flex-grow-1 p-4">
@@ -30,11 +34,20 @@ export const BasketPage = observer(() => {
 					key={`${value}-${index}`}
 					orderInfo={value}
 					orderId={index + 1}
-					show={showSnack}
-					onClose={toggleShow}
+					showDelete={showSnackDelete}
+					onCloseDelete={toggleShowDelete}
+					show={showSnackConfirm}
+					onCloseConfirm={toggleShowConfirm}
 				/>
 			))}
-			<SnackbarDeleteOrder show={showSnack} onClose={toggleShow} />
+			<SnackbarDeleteOrder
+				showDelete={showSnackDelete}
+				onCloseDelete={toggleShowDelete}
+			/>
+			<SnackbarConfirmOrder
+				show={showSnackConfirm}
+				onCloseConfirm={toggleShowConfirm}
+			/>
 		</Container>
 	);
 });

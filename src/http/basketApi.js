@@ -1,4 +1,4 @@
-import { $authHost } from ".";
+import { $authHost, $host } from ".";
 
 export const addToBasket = async (announInfo) => {
 	const { data } = await $authHost.post("api/basket/", announInfo);
@@ -17,5 +17,10 @@ export const deleteOrderBasket = async (orderInfo) => {
 
 export const getBasketForMessages = async () => {
 	const { data } = await $authHost.get("api/basket/orders");
+	return data;
+};
+
+export const getInfoAnnoun = async (orderInfo) => {
+	const { data } = await $host.post("api/basket/info", orderInfo);
 	return data;
 };

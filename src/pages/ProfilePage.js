@@ -2,12 +2,14 @@ import React, { useContext, useState } from "react";
 import { Button, Card, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Context } from "..";
-import Image from "../img/anonim.jpg";
+import ImageAnonim from "../img/anonim.jpg";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { IconButton } from "@mui/material";
 import "../css/ProfilePage.css";
 import ImageProfile from "../components/Modals/ImageProfile";
 import { observer } from "mobx-react-lite";
+
+//FIXME: Исправить инфу о пользователе
 
 export const ProfilePage = observer(() => {
 	const { userStore } = useContext(Context);
@@ -29,11 +31,21 @@ export const ProfilePage = observer(() => {
 				<Card.Body className="border p-2 d-flex flex-row justify-content-between">
 					<div className="profile border">
 						<div className="profile-img d-flex flex-column">
-							<Card.Img
-								variant="top"
-								src={process.env.REACT_APP_SERVER_URL + userStore.userInfo.img}
-								style={{ width: "200px" }}
-							/>
+							{userStore.userInfo.img ? (
+								<Card.Img
+									variant="top"
+									src={
+										process.env.REACT_APP_SERVER_URL + userStore.userInfo.img
+									}
+									style={{ width: "200px" }}
+								/>
+							) : (
+								<Card.Img
+									variant="top"
+									src={ImageAnonim}
+									style={{ width: "200px" }}
+								/>
+							)}
 							<IconButton
 								title="Добавить фото"
 								onClick={() => {
@@ -58,11 +70,11 @@ export const ProfilePage = observer(() => {
 							&nbsp;
 							<span>{userStore.userInfo.firstName}</span>
 						</div>
-						<div>
+						{/* <div>
 							<span className="fw-bold fst-italic">Отчество:</span>
 							&nbsp;
 							<span>{userStore.user.email}</span>
-						</div>
+						</div> */}
 						<div>
 							<span className="fw-bold fst-italic">Фамилия:</span>
 							&nbsp;

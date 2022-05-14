@@ -21,4 +21,14 @@ const SnackbarDeleteOrder = ({ show, onClose }) => {
 	);
 };
 
-export { SnackbarDeleteOrder, SnackbarAddToBasket };
+const SnackbarConfirmOrder = ({ show, onClose }) => {
+	return (
+		<Snackbar open={show} autoHideDuration={3000} onClose={onClose}>
+			<Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>
+				Подтвержденно
+			</Alert>
+		</Snackbar>
+	);
+};
+
+export { SnackbarDeleteOrder, SnackbarAddToBasket, SnackbarConfirmOrder };

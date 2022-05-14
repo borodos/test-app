@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { BrowserRouter } from "react-router-dom";
 import { Context } from ".";
-import { Footer } from "./components/Footer/Footer";
-import { NavBar } from "./components/NavBar/NavBar";
+import { Footer } from "./components/Footer";
+import { NavBar } from "./components/NavBar";
 import { check, getUserInfo } from "./http/userAPI";
 import { AppRouter } from "./navigation/AppRouter";
 import "./css/Main.css";
@@ -14,21 +14,18 @@ export const App = observer(() => {
 	const { userStore } = useContext(Context);
 	const [loading, setLoading] = useState(true);
 
+	//FIXME: Исправить вывод ошибки
 	useEffect(() => {
-		try {
-			check()
-				.then((data) => {
-					userStore.setUser(data);
-					userStore.setIsAuth(true);
-				})
-				.finally(() => setLoading(false));
-			getUserInfo().then((data) => {
-				userStore.setUserInfo(data);
-			});
-		} catch (error) {
-			alert(error.response.data.message);
-		}
-	}, []);
+		check()
+			.then((data) => {
+				userStore.setUser(data);
+				userStore.setIsAuth(true);
+			})
+			.finally(() => setLoading(false));
+		getUserInfo().then((data) => {
+			userStore.setUserInfo(data);
+		});
+	}, [userStore]);
 
 	if (loading) {
 		return (

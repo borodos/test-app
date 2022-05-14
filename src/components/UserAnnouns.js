@@ -4,11 +4,23 @@ import { announDelete } from "../http/announApi";
 
 export const UserAnnouns = ({ announInfo, updateUserAnnounsPage }) => {
 	const deleteAnnounUser = () => {
-		announDelete(announInfo).then(() => {
-			updateUserAnnounsPage();
-		});
+		announDelete(announInfo)
+			.then(() => {
+				updateUserAnnounsPage();
+			})
+			.catch((error) => {
+				alert(error.response.data.message);
+			});
 	};
-
+	const setDate = () => {
+		const date = announInfo.createdAt
+			.split("T")[0]
+			.split("-")
+			.reverse()
+			.join(".");
+		const time = announInfo.createdAt.split("T")[1].slice(0, 5);
+		return `${date} ${time}`;
+	};
 	return (
 		<Container className="flex-grow-1 p-2">
 			<Card className="d-flex flex-row align-items-center w-50">
@@ -21,7 +33,7 @@ export const UserAnnouns = ({ announInfo, updateUserAnnounsPage }) => {
 						<span>Описание: {announInfo.description}</span> &nbsp;
 					</div>
 					<div className="card-name-object">
-						<span>Дата создания: {announInfo.createdAt}</span> &nbsp;
+						<span>Дата создания: {setDate()}</span> &nbsp;
 					</div>
 				</Card.Body>
 				<div>

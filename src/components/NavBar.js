@@ -2,22 +2,32 @@ import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { Context } from "../../index";
-import "../../css/NavBar.css";
-import CreateCard from "../Modals/CreateCard";
+import { Context } from "../index";
+import "../css/NavBar.css";
+import CreateCard from "../components/Modals/CreateCard";
 import { Badge } from "@mui/material";
 import { Email, ShoppingCart } from "@mui/icons-material";
-import { getBasketForMessages } from "../../http/basketApi";
+import { getBasketForMessages } from "../http/basketApi";
+import { getMessagesCount } from "../http/messageApi";
 
 export const NavBar = observer(() => {
 	const { userStore } = useContext(Context);
 	const navigate = useNavigate();
 	const [modalVisible, setModalVisible] = useState(false);
+	const [messageBasket, setVessageBasket] = useState(0);
+	const [message, setMessage] = useState(0);
 
 	useEffect(() => {
 		getBasketForMessages()
 			.then((data) => {
 				userStore.setBasketMessages(data);
+			})
+			.catch((error) => {
+				alert(error.response.data.message);
+			});
+		getMessagesCount()
+			.then((data) => {
+				userStore.setUserMessages(data);
 			})
 			.catch((error) => {
 				alert(error.response.data.message);

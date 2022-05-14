@@ -5,14 +5,39 @@ import {
 	deleteOrderBasket,
 	getBasket,
 	getBasketForMessages,
+	getInfoAnnoun,
 } from "../http/basketApi";
-import { SnackbarAddAnnoun } from "./Snackbar";
 
-export const Order = ({ orderInfo, orderId, onClose }) => {
+export const Order = ({
+	orderInfo,
+	orderId,
+	onCloseDelete,
+	onCloseConfirm,
+}) => {
+	const [info, setInfo] = useState({});
 	const { basketStore } = useContext(Context);
 	const { userStore } = useContext(Context);
 
+	useEffect(() => {
+		getInfoAnnoun(orderInfo).then((data) => {
+			setInfo(data);
+		});
+	}, []);
+
 	const deleteOrder = () => {
+		deleteOrderBasket(orderInfo).then(() => {
+			getBasket().then((data) => {
+				basketStore.setOrders(data);
+			});
+			getBasketForMessages().then((data) => {
+				userStore.setBasketMessages(data);
+			});
+			onCloseDelete();
+		});
+	};
+
+	//FIXME: Изменить логику
+	const confirmOrder = () => {
 		deleteOrderBasket(orderInfo)
 			.then(() => {
 				getBasket().then((data) => {
@@ -21,7 +46,7 @@ export const Order = ({ orderInfo, orderId, onClose }) => {
 				getBasketForMessages().then((data) => {
 					userStore.setBasketMessages(data);
 				});
-				onClose();
+				onCloseConfirm();
 			})
 			.catch((error) => {
 				alert(error.response.data.message);
@@ -29,21 +54,18 @@ export const Order = ({ orderInfo, orderId, onClose }) => {
 	};
 
 	return (
-		<div className="order-container w-50 mt-4">
+		<div className="mt-4">
 			<Card className="d-flex flex-row align-items-center ">
 				<Card.Body>
 					<Card.Title>Заказ номер №{orderId}</Card.Title>
 					<div className="card-name-person">
-						<span>ФИО владельца:</span> &nbsp;
-						<span>Петров В.А.</span>
+						<span>ФИО владельца: {info.person}</span>
 					</div>
 					<div className="card-phone-person">
-						<label>Мобильный телефон:</label> &nbsp;
-						<span>+79809065849</span>
+						<span>Мобильный телефон: {info.phone}</span>
 					</div>
 					<div className="card-name-object">
-						<span>Название объекта:</span> &nbsp;
-						<span>Сладкие пирожки</span>
+						<span>Название объекта: {info.nameObject}</span>
 					</div>
 				</Card.Body>
 				<div>
@@ -53,6 +75,13 @@ export const Order = ({ orderInfo, orderId, onClose }) => {
 						onClick={deleteOrder}
 					>
 						Отменить
+					</Button>
+					<Button
+						className="m-2"
+						variant="outline-warning"
+						onClick={confirmOrder}
+					>
+						Подтвердить получение
 					</Button>
 				</div>
 			</Card>
